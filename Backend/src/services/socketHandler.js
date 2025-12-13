@@ -1,7 +1,7 @@
 import { Server } from "socket.io";
 import * as jwtUtils from "../utils/jwt.js";
 import User from "../models/User.model.js";
-import Room from "../models/Room.model.js";
+import Room from "../models/Sessioon.model.js";
 import { ENV } from "../lib/env.js";
 
 export function initSocket(server) {

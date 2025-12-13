@@ -10,6 +10,9 @@ import { initSocket } from "./services/socketHandler.js";
 import verifyJwt from "./middleware/verifyJwt.js";
 import { ENV } from "./lib/env.js";
 
+import SessionRoute from "./routes/SessionRoute.js";
+import chatRoute from "./routes/chatRoute.js";
+
 const app = express();
 const server = http.createServer(app);
 
@@ -29,11 +32,15 @@ const authLimiter = rateLimit({
   message: { error: "Too many requests, try again later" },
 });
 
+//Routes :--
 app.use("/api/auth", authLimiter, authRoutes);
 
 app.get("/api/auth/me", verifyJwt, (req, res) => {
   res.json({ ok: true, user: req.user });
 });
+
+app.use("/api/chat", chatRoute);
+app.use("/api/Sessions", SessionRoute);
 
 async function start() {
   const port = ENV.PORT || 5000;
